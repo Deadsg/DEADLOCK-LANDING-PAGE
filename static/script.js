@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global State ---
     let walletPublicKey = null;
-    const BASE_API_URL = 'https://YOUR_NGROK_URL_HERE'; // Replace with your ngrok URL for the chat server (port 8000)
+    const BASE_API_URL = 'https://ruben-unprecipitant-florence.ngrok-free.dev'; // Replace with your ngrok URL for the chat server (port 8000)
 
     // --- API Functions ---
     const API = {
