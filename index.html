@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DEADLOCK NETWORK</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <canvas id="matrixCanvas"></canvas>
+    <div class="container">
+        <header>
+            <h1 class="glitch" data-text="DEADLOCK NETWORK">DEADLOCK NETWORK</h1>
+            <nav>
+                <a href="#mainframe">Mainframe</a>
+                <a href="#missions">Mission Board</a>
+                <a href="#agents">Agent Roster</a>
+                <a href="#data">Data Havens</a>
+            </nav>
+        </header>
+
+        <main>
+            <section id="mainframe">
+                <h2>Mainframe</h2>
+                <div class="mainframe-grid">
+                    <div id="system-log" class="terminal">
+                        <h3>System Log</h3>
+                        <div id="log-output"></div>
+                    </div>
+                    <div id="chat-terminal" class="terminal">
+                        <h3>AI Chat</h3>
+                        <div id="chat-output"></div>
+                        <div class="chat-input">
+                            <input type="text" id="chat-input-field" placeholder="Type your message...">
+                            <button id="chat-send-btn">Send</button>
+                        </div>
+                    </div>
+                    <div id="agent-controls">
+                        <h3>Agent Control</h3>
+                        <div id="resource-display">
+                            <span>Resources:</span>
+                            <span id="resource-value">0</span>
+                        </div>
+                        <button id="run-agent-cycle">Run Agent Cycle</button>
+                        <div id="wallet-integration">
+                            <button id="connect-wallet-btn">Connect Phantom Wallet</button>
+                            <p id="wallet-address-display">Wallet: Not Connected</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="missions">
+                <h2>MISSION BOARD</h2>
+                <div class="mission-grid">
+                    <!-- Missions will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <section id="agents">
+                <h2>AGENT ROSTER</h2>
+                <div class="agent-grid">
+                    <!-- Agents will be dynamically inserted here -->
+                </div>
+            </section>
+
+            <section id="data">
+                <h2>DATA HAVENS</h2>
+                <div class="data-grid">
+                    <!-- Data files will be dynamically inserted here -->
+                </div>
+            </section>
+        </main>
+
+        </footer>
+    </div>
+
+    <audio id="background-music" autoplay muted loop>
+        <source src="static/music3.mp3" type="audio/mpeg">
+    </audio>
+    <button id="music-toggle">Toggle Music</button>
+
+    <script src="static/script.js"></script>
+</body>
+</html>
