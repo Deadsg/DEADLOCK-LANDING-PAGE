@@ -1,0 +1,20 @@
+graph TD
+    subgraph Local Development Environment
+        A[Frontend (index.html, JS)] -- serves --> B(python3 -m http.server 5500)
+        C[Chat API Server (chat_server.py)] -- runs on --> D(uvicorn 8000)
+        E[Agent API Server (server.py)] -- runs on --> F(uvicorn 8001)
+    end
+
+    subgraph ngrok Tunnels
+        B -- exposes --> G(ngrok http 5500)
+        D -- exposes --> H(ngrok http 8000)
+        F -- exposes --> I(ngrok http 8001)
+    end
+
+    subgraph Internet / Vercel Frontend
+        J(Vercel Frontend or Local Browser)
+    end
+
+    J -- requests --> G
+    J -- API calls to --> H
+    J -- API calls to --> I
