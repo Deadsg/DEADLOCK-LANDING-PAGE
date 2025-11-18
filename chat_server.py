@@ -5,6 +5,7 @@ from langchain_openai import OpenAI
 import os
 import json
 import re
+from fastapi import FastAPI, Request # Added Request here
 
 # --- App Setup ---
 app = FastAPI()
@@ -14,6 +15,18 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# --- Webhook Endpoint ---
+@app.post("/webhook")
+async def receive_webhook(request: Request):
+    """
+    Accepts and logs incoming webhook payloads.
+    """
+    payload = await request.json()
+    print("--- INCOMING WEBHOOK ---")
+    print(payload)
+    print("------------------------")
+    return {"status": "success", "received_data": payload}
 
 # --- Network State (for context) ---
 # This is a simplified copy for the chat server's context.
