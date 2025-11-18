@@ -3,11 +3,6 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
 from fastapi.middleware.cors import CORSMiddleware
 from agent import Agent
-from pydantic import BaseModel
-from langchain_openai import OpenAI
-import os
-import json
-import re
 
 # --- App Setup ---
 app = FastAPI()
@@ -17,19 +12,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
-# --- AI/LLM Setup ---
-# Note: This requires an OPENAI_API_KEY environment variable to be set.
-try:
-    llm = OpenAI(temperature=0.7)
-except Exception as e:
-    print(f"Could not initialize OpenAI LLM: {e}")
-    llm = None
-
-class Query(BaseModel):
-    prompt: str
-    wallet: str = None
-    balance: float = None
 
 # --- Agent and Environment Setup ---
 agent = Agent()
@@ -123,65 +105,6 @@ async def run_agent_cycle():
         # Return a 500 Internal Server Error
         from fastapi.responses import JSONResponse
         return JSONResponse(status_code=500, content={"detail": f"Internal server error in agent cycle: {e}"})
-
-@app.post("/api/chat")
-async def chat(query: Query):
-    try:
-        if not llm:
-            return {"response": "LLM not configured. Please set the OPENAI_API_KEY.", "tx": None, "balance": query.balance}
-
-        wallet_info = (
-            f"Connected wallet: {query.wallet}" if query.wallet
-            else "No wallet connected."
-        )
-
-        balance_info = (
-            f"Wallet balance: {query.balance} SOL" if query.balance is not None
-            else "Wallet balance unknown."
-        )
-
-        full_prompt = f"""
-        You are the central command AI for the DEADLOCK NETWORK. Your primary function is to communicate with the operator, provide information about the network's state, and report on the status and activities of the agents. You can also interpret commands related to agent operations, missions, and data analysis.
-
-        Current Network State:
-        - Resources: {network_state.get("resources")}
-        - Missions: {json.dumps(network_state.get("missions"))}
-        - Data Havens: {json.dumps(network_state.get("data_havens"))}
-        - Agents: {json.dumps(network_state.get("agents"))}
-        - Recent Log: {json.dumps(network_state.get("log"))}
-
-        User query: {query.prompt}
-
-        {wallet_info}
-        {balance_info}
-
-        If the user wants to send SOL, include a JSON object like:
-        {{ "tx": {{ "to": "<recipient_pubkey>", "amount": 0.01 }} }}
-
-        Only include the transaction JSON if the user asks for a transfer.
-        Respond normally otherwise.
-        """
-
-        response = llm.invoke(full_prompt)
-
-        tx_match = re.search(r'({.*"tx".*})', response)
-        tx_data = None
-
-        if tx_match:
-            try:
-                tx_data = json.loads(tx_match.group(1))
-            except:
-                tx_data = None
-
-        return {
-            "response": response,
-            "tx": tx_data,
-            "balance": query.balance
-        }
-    except Exception as e:
-        import traceback
-        traceback.print_exc() # Print full traceback to console
-        return {"response": f"Internal server error in chat: {e}", "tx": None, "balance": query.balance, "status_code": 500}
 
 
 @app.get("/api/hello")
