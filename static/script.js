@@ -17,19 +17,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global State ---
     let walletPublicKey = null;
-    const BASE_API_URL = 'https://ruben-unprecipitant-florence.ngrok-free.dev'; // Replace with your ngrok URL for the chat server (port 8000)
+    const BASE_CHAT_API_URL = 'https://ruben-unprecipitant-florence.ngrok-free.dev '; // Replace with your ngrok URL for the chat server (port 8000)
+    const BASE_AGENT_API_URL = 'https://ruben-unprecipitant-florence.ngrok-free.dev '; // Replace with your ngrok URL for the agent server (port 8001)
 
     // --- API Functions ---
     const API = {
         getState: async () => {
-            const response = await fetch(`${BASE_API_URL}/api/state`);
+            const response = await fetch(`${BASE_AGENT_API_URL}/api/state`);
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
             return response.json();
         },
         runAgentCycle: async () => {
-            const response = await fetch(`${BASE_API_URL}/api/run_agent_cycle`, { method: 'POST' });
+            const response = await fetch(`${BASE_AGENT_API_URL}/api/run_agent_cycle`, { method: 'POST' });
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
@@ -40,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 prompt: message,
                 wallet: walletPublicKey // Include wallet public key in the payload
             };
-            const response = await fetch(`${BASE_API_URL}/api/chat`, {
+            const response = await fetch(`${BASE_CHAT_API_URL}/api/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
