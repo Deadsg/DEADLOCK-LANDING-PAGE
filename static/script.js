@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global State ---
     let walletPublicKey = null;
-    const BASE_API_URL = 'https://ruben-unprecipitant-florence.ngrok-free.dev'; // Set this to your ngrok URL if using ngrok, e.g., 'https://your-ngrok-id.ngrok-free.app'
+    const BASE_API_URL = 'http://localhost:8000';
 
     // --- API Functions ---
     const API = {
