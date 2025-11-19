@@ -4,7 +4,7 @@
 
 fastapi==0.95.2
 uvicorn[standard]==0.22.0
-onnxruntime=="*"
+onnxruntime==*
 numpy==1.25.2
 pydantic==1.10.12
 
