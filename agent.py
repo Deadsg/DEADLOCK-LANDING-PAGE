@@ -6,7 +6,7 @@ class Agent:
     """
     An agent for the DEADLOCK NETWORK that uses an ONNX Q-network model to make decisions.
     """
-    def __init__(self, model_path="Q_Layered_Network/dqn_node_model.onnx"):
+    def __init__(self, model_path="C:/Users/deads/OneDrive/Documents/AGI/DEADLOCK-LANDING-PAGE/Q_Layered_Network/dqn_node_model.onnx"):
         """
         Initializes the Agent and loads the ONNX Q-network model.
         """
