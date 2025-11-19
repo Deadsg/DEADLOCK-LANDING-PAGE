@@ -3,16 +3,16 @@
 # Adjust versions for your environment (CPU vs GPU ONNX runtimes, newer langchain/openai, etc.).
 
 fastapi
-uvicorn[standard]==0.22.0
-onnxruntime ==1.23.0
+uvicorn[standard]
+onnxruntime
 numpy>=1.26.0
-pydantic==1.10.12
+pydantic
 
 # LLM / OpenAI bindings
-openai==0.27.8
-langchain==0.0.275
+openai
+langchain
 # Some code imports `langchain_openai`; if you rely on that package, install it too.
-langchain-openai==0.1.3
+langchain-openai
 
 # Optional helpers
 python-dotenv==1.0.0
