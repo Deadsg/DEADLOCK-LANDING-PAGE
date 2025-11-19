@@ -8,7 +8,7 @@ import numpy as np
 import onnxruntime as ort
 
 # Import the Agent class from agent.py
-from agent import Agent
+from agents import Agent
 
 app = FastAPI()
 
