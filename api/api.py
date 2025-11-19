@@ -134,4 +134,4 @@ async def run_agent_cycle_endpoint(request: AgentCycleRequest):
         raise HTTPException(status_code=500, detail=f"Error during agent cycle: {e}")
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8002)

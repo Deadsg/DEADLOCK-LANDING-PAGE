@@ -7,7 +7,7 @@ class Agent:
     """
     An agent for the DEADLOCK NETWORK that uses an ONNX Q-network model to make decisions.
     """
-    def __init__(self, model_path="Q_Layered_Network/dqn_node_model.onnx"):
+    def __init__(self, model_path=None):
         """
         Initializes the Agent and loads the ONNX Q-network model.
         Model path is taken from the `model_path` argument or the `AGENT_MODEL_PATH`
@@ -21,7 +21,7 @@ class Agent:
 
         # Resolve model path: explicit arg -> env var -> default relative path
         if model_path is None:
-            model_path = os.getenv('AGENT_MODEL_PATH', 'Q_Layered_Network/dqn_node_model.onnx')
+            model_path = ('C:/Users/deads/OneDrive/Documents/AGI/DEADLOCK-LANDING-PAGE/Q_Layered_Network/dqn_node_model.onnx')
 
         # Expand user and make absolute if relative
         model_path = os.path.expanduser(model_path)

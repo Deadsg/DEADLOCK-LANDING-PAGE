@@ -17,8 +17,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Global State ---
     let walletPublicKey = null;
-    const BASE_CHAT_API_URL = 'http://localhost:8000'; // Chat server (port 8000)
-    const BASE_AGENT_API_URL = 'http://localhost:8001'; // Agent/API server (port 8001)
+    const BASE_CHAT_API_URL = 'https://ruben-unprecipitant-florence.ngrok-free.dev'; // Chat server (port 8000)
+    const BASE_AGENT_API_URL = 'https://ruben-unprecipitant-florence.ngrok-free.dev'; // Agent/API server (port 8001)
 
     // --- API Functions ---
     const API = {
