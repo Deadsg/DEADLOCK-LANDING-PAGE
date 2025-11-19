@@ -1,3 +1,4 @@
+import os
 import random
 import numpy as np
 import onnxruntime as ort
@@ -6,16 +7,30 @@ class Agent:
     """
     An agent for the DEADLOCK NETWORK that uses an ONNX Q-network model to make decisions.
     """
-    def __init__(self, model_path="C:/Users/deads/OneDrive/Documents/AGI/DEADLOCK-LANDING-PAGE/Q_Layered_Network/dqn_node_model.onnx"):
+    def __init__(self, model_path=None):
         """
         Initializes the Agent and loads the ONNX Q-network model.
+        Model path is taken from the `model_path` argument or the `AGENT_MODEL_PATH`
+        environment variable. If neither is provided, falls back to the relative
+        path `Q_Layered_Network/dqn_node_model.onnx` inside the repo.
         """
         self.q_network = None
         self.input_name = None
         self.output_name = None
         self.state_size = 128  # Based on analysis of the training script
 
+        # Resolve model path: explicit arg -> env var -> default relative path
+        if model_path is None:
+            model_path = os.getenv('AGENT_MODEL_PATH', 'Q_Layered_Network/dqn_node_model.onnx')
+
+        # Expand user and make absolute if relative
+        model_path = os.path.expanduser(model_path)
+        if not os.path.isabs(model_path):
+            repo_root = os.path.dirname(__file__)
+            model_path = os.path.join(repo_root, model_path)
+
         try:
+            print(f"Attempting to load ONNX Q-network from: {model_path}")
             self.q_network = ort.InferenceSession(model_path)
             self.input_name = self.q_network.get_inputs()[0].name
             self.output_name = self.q_network.get_outputs()[0].name
